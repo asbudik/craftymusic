@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<head>  
+  <script type="text/javascript" src="crafty.js"></script>
+</head>
+<body>
+  <script type="text/javascript">
+
+    Crafty.init(600, 300);
+Crafty.background('black');
+
+var pushBar = function(y, color) {
+  return Crafty.e("PushBar, 2D, DOM, Color, Fourway")
+    .color(color)
+    .attr({x: 10, y: y, w: 15,h: 30})
+}
+
+var bar = function(y, color) {
+  return Crafty.e("2D, DOM, Color, Collision")
+  .attr({ x: 650, y: y, w: 10, h: 20, 
+      dX: Crafty.math.randomInt(-2, -2), 
+      dY: 0})
+  .color(color)
+  .bind('EnterFrame', function () {
+
+    // if (this.x < 0) {
+    //   this.x = 650;
+    //   Crafty("RightPoints").each(function () { 
+    //     this.text(++this.points + " Points") });
+    // }
+    this.x += this.dX;
+    this.y += this.dY;
+  })
+}
+
+var barGenerate = function(y, color, arrowKey) {
+  e1 = pushBar(y, color).bind('EnterFrame', function() {
+    var random = Math.random(50) * 10
+    if (random > 9.9) {
+      bar(y, color).bind('KeyDown', function(e) {
+        if (e.key == arrowKey) {
+          if (this.hit('PushBar')) {
+            this.destroy();
+          }
+        }
+      })
+    }
+  })
+}
+//Bar
+e1 = pushBar(130, 'rgb(255, 0, 0').bind('EnterFrame', function() {
+  var random = Math.random(50) * 10
+  if (random > 9.9) {
+    bar(250, 'rgb(255, 0, 255').bind('KeyDown', function(e) {
+      if (e.key == Crafty.keys.RIGHT_ARROW) {
+        if (this.hit('PushBar')) {
+          this.destroy();
+        }
+      }
+    })
+  }
+})
+
+e2 = pushBar(170, 'rgb(255, 255, 0').bind('EnterFrame', function() {
+  var random = Math.random(50) * 10
+  if (random > 9.9) {
+    bar(250, 'rgb(255, 0, 255').bind('KeyDown', function(e) {
+      if (e.key == Crafty.keys.RIGHT_ARROW) {
+        if (this.hit('PushBar')) {
+          this.destroy();
+        }
+      }
+    })
+  }
+})
+
+e3 = pushBar(210, 'rgb(100, 100, 255').bind('EnterFrame', function() {
+  var random = Math.random(50) * 10
+  if (random > 9.9) {
+    bar(250, 'rgb(255, 0, 255').bind('KeyDown', function(e) {
+      if (e.key == Crafty.keys.RIGHT_ARROW) {
+        if (this.hit('PushBar')) {
+          this.destroy();
+        }
+      }
+    }))
+  }
+})
+
+e4 = pushBar(250, 'rgb(255, 0, 255').bind('EnterFrame', function() {
+  var random = Math.random(50) * 10
+  if (random > 9.9) {
+    bar(250, 'rgb(255, 0, 255').bind('KeyDown', function(e) {
+      if (e.key == Crafty.keys.RIGHT_ARROW) {
+        if (this.hit('PushBar')) {
+          this.destroy();
+        }
+      }
+    })
+  }
+})
+
+//Score boards
+Crafty.e("LeftPoints, DOM, 2D, Text")
+  .attr({ x: 20, y: 20, w: 100, h: 20, points: 0 })
+  .text("0 Points");
+Crafty.e("RightPoints, DOM, 2D, Text")
+  .attr({ x: 515, y: 20, w: 100, h: 20, points: 0 })
+  .text("0 Points");
+
+  </script>
+</body>
+</html>
