@@ -1,4 +1,8 @@
 
+#cr-stage {
+  position: absolute;
+  margin: 0 auto;
+}
 .button {
   display: none;
     cursor: pointer;
@@ -14,17 +18,23 @@
     background: red;
     color:#ffffff;
     text-align: center;
-    line-height: 30px;
     bottom:20px;
     z-index: 100;
     font-family: 'Helvetica', sans-serif;
+    font-weight: bolder;
+    font-size: 30px;
 }
 #foo {
   position: absolute;
   display: none;
   width: 120px;
+  left: 700px;
   height: 40px;
   z-index: 100;
-  left: 700px;
   top: 17px;
+}
+
+#buttons {
+  margin-top: 35px;
+  font-size: 50px;
 }
