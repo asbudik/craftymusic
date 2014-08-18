@@ -19,3 +19,12 @@
     z-index: 100;
     font-family: 'Helvetica', sans-serif;
 }
+#foo {
+  position: absolute;
+  display: none;
+  width: 120px;
+  height: 40px;
+  z-index: 100;
+  left: 700px;
+  top: 17px;
+}
