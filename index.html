@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <head>  
   <script type="text/javascript" src="crafty.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+<div class="button">PLAY</div>
   <script type="text/javascript">
+Crafty.scene('Opening', function() {
+  Crafty.init(800, 350)
+    var button = $('.button')
+    button.css({"display": "inline"})
+  Crafty.background('black')
+  var bgmenu = Crafty.e("2D, DOM, Image")
+  .attr({w: Crafty.viewport.width, h: Crafty.viewport.height, z: 0, alpha: .5})
+  .image("img/menuscreen2.png");
+  button.on('click', function() {
+    button.css({"display": "none"})
+    Crafty.scene('Game')
+  })
+})
 Crafty.scene('Game', function() {
 Crafty.init(800, 350);
 Crafty.background('black');
 var bg = Crafty.e("2D, DOM, Image")
   .attr({w: Crafty.viewport.width, h: Crafty.viewport.height})
   .image("img/Untitled-3.png");
-
-Crafty.c("HideShow", {
-  hide : function() {
-    this.attr({
-        z : 0,
-        alpha: 0.01
-    });
-},
-
-  show : function() {
-    this.attr({
-        z : 2,
-        alpha : 1
-    })
-  }
-});
 
 var announcement = function(points, feedback, color) {
   Crafty('Points').each(function() {
@@ -61,7 +60,7 @@ var smoke = function(y, image) {
 var bar = function(y, color, image) {
   return Crafty.e("2D, DOM, Color, Collision, Image, HideShow, Tween")
   .attr({ x: 850, y: y, w: 10, h: 30, 
-      dX: -4, 
+      dX: Crafty.math.randomInt(-5, -6), 
       dY: 0})
   .image(image)
   .bind('EnterFrame', function () {
@@ -74,6 +73,12 @@ var bar = function(y, color, image) {
       .bind('TweenEnd', function() {
         this.hide()
       })
+      Crafty('Life').each(function() {
+        this.text("Saves: " + (this.lifecount -= 1))
+        if (this.lifecount == 0) {
+          return Crafty.scene('Opening');
+        }
+      })
     }
     this.x += this.dX;
     this.y += this.dY;
@@ -81,19 +86,23 @@ var bar = function(y, color, image) {
 }
 
 var barGenerate = function(y, color, arrowKey, image) {
-  countdown = 130
+  countdown = 100
   pushBar(y, color, image).bind('EnterFrame', function() {
     if (countdown > 0) {
       countdown -= 1
     } else {
       var random = Math.random(50) * 10
-      if (random > 9) {
+      if (random > 5) {
         bar(y, color, image).bind('KeyDown', function(e) {
           if (e.key == arrowKey) {
 
 
             if (this.hit('PushBar') !== false) {
               Crafty.audio.play('node');
+              this.tween({alpha: .2}, 50)
+              .bind('TweenEnd', function() {
+                this.destroy()
+              })
               smokeToRow[arrowKey].tween({alpha: .7, z: 10}, 200)
               .bind('TweenEnd', function() {
                 this.hide();
@@ -103,19 +112,12 @@ var barGenerate = function(y, color, arrowKey, image) {
                 this.hide();
               })
               if (this.x > 25 && this.x < 35) {
-                this.tween({alpha: .2}, 100)
-                .bind('TweenEnd', function() {
-                  this.destroy()
-                });
                 announcement(1005, 'AWESOME!', "3px 2px green")
               } else if (this.x > 19 && this.x < 40) {
-                this.destroy();
                 announcement(805, 'GOOD!', "3px 2px blue")
               } else if (this.x > 10 && this.x < 47) {
-                this.destroy();
                 announcement(605, 'OKAY!', "3px 2px orange")
               } else if (this.x > 5 && this.x < 53) {
-                this.destroy();
                 announcement(405, 'BAD!', "3px 2px red")
               }
             } else {
@@ -126,7 +128,7 @@ var barGenerate = function(y, color, arrowKey, image) {
             }
           }
         })
-        countdown = 130
+        countdown = 100
       }
     }
   })
@@ -208,13 +210,34 @@ Crafty.e("Words, DOM, 2D, Text, Result")
 .textColor('#FFFFFF')
 .textFont({ size: '25px', weight: 'bold', family: 'Helvetica' });
 
-Crafty.e("Points, DOM, 2D, Text")
+Crafty.e("Points, DOM, 2D, Text, LifeCount")
   .attr({ x: 20, y: 18, w: 100, h: 20, points: 0 })
   .text("0")
   .textColor('#FFFFFF')
   .textFont({ size: '20px', weight: 'bold', family: 'Helvetica' })
+Crafty.e("Life, DOM, 2D, Text, LifeCount")
+  .attr({ x: 700, y: 18, w: 100, h: 20, lifecount: 30 })
+  .text("Saves: 30")
+  .textColor('#FFFFFF')
+  .textFont({ size: '20px', weight: 'bold', family: 'Helvetica' })
 })
-Crafty.scene('Game')
+
+Crafty.scene('Opening')
+Crafty.c("HideShow", {
+  hide : function() {
+    this.attr({
+        z : 0,
+        alpha: 0.01
+    });
+},
+
+  show : function() {
+    this.attr({
+        z : 2,
+        alpha : 1
+    })
+  }
+});
   </script>
 </body>
 </html>
