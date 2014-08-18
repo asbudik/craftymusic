@@ -1,4 +1,5 @@
 window.onload = function() {
+
 var opts = {
   lines: 12, // The number of lines to draw
   angle: 0.35, // The length of each line
@@ -271,7 +272,7 @@ Crafty.e("Life, DOM, 2D, Text, LifeCount")
   .textColor('#FFFFFF')
   .textFont({ size: '14px', weight: 'bold', family: 'Helvetica' })
   Crafty.e("Combo, DOM, 2D, Text, combos")
-  .attr({x:735, y: 21, w: 100, h: 20, combos: 1000})
+  .attr({x:743, y: 28, w: 100, h: 20, combos: 1000})
   .text("1000")
   .textColor('#FFFFFF')
   .textFont({ size: '14px', weight: 'bold', family: 'Helvetica' })
