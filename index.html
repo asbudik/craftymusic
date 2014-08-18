@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <head>  
   <script type="text/javascript" src="crafty.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <script type="text/javascript">
-
+Crafty.scene('Game', function() {
 Crafty.init(800, 350);
-Crafty.background('grey');
+Crafty.background('black');
 var bg = Crafty.e("2D, DOM, Image")
   .attr({w: Crafty.viewport.width, h: Crafty.viewport.height})
   .image("img/Untitled-3.png");
+
+Crafty.c("HideShow", {
+  hide : function() {
+    this.attr({
+        z : 0,
+        alpha: 0.01
+    });
+},
+
+  show : function() {
+    this.attr({
+        z : 2,
+        alpha : 1
+    })
+  }
+});
 
 var announcement = function(points, feedback, color) {
   Crafty('Points').each(function() {
@@ -17,7 +34,7 @@ var announcement = function(points, feedback, color) {
   })
   Crafty('Words').each(function() {
     this.text(this.result = feedback)
-    .css({"text-shadow": "2px 2px red"})
+    .css({"text-shadow": color})
   })
 }
 
@@ -25,19 +42,38 @@ var pushBar = function(y, color, image) {
   return Crafty.e("PushBar, 2D, DOM, Color, Image")
     .image(image)
     .attr({x: 30, y: y, w: 20,h: 30})
+    .bind('KeyDown', function(e) {
+    })
+}
+
+var row = function(color, y, h) {
+  return Crafty.e("Row, 2D, DOM, Color, HideShow, Tween")
+  .attr({y: y, w: Crafty.viewport.width, h: h, z: 4, alpha: 0.01})
+  .color(color)
+}
+
+var smoke = function(y, image) {
+  return Crafty.e("Smoke, 2D, DOM, HideShow, Image, Tween")
+  .attr({x: 30, y: y, w: 20, h: 20, z: 4, alpha: 0.01})
+  .image(image);
 }
 
 var bar = function(y, color, image) {
-  return Crafty.e("2D, DOM, Color, Collision, Image")
+  return Crafty.e("2D, DOM, Color, Collision, Image, HideShow, Tween")
   .attr({ x: 850, y: y, w: 10, h: 30, 
-      dX: -2, 
+      dX: -4, 
       dY: 0})
   .image(image)
   .bind('EnterFrame', function () {
 
     if (this.x < -10) {
+      Crafty.audio.play('fail')
       this.destroy();
-      announcement(-300, 'MISSED!', "red")
+      announcement(-300, 'MISSED!', "3px 2px brown")
+      r5.tween({alpha: 0.6}, 200)
+      .bind('TweenEnd', function() {
+        this.hide()
+      })
     }
     this.x += this.dX;
     this.y += this.dY;
@@ -51,26 +87,40 @@ var barGenerate = function(y, color, arrowKey, image) {
       countdown -= 1
     } else {
       var random = Math.random(50) * 10
-      if (random > 9.9) {
+      if (random > 9) {
         bar(y, color, image).bind('KeyDown', function(e) {
           if (e.key == arrowKey) {
-            if (this.hit('PushBar') != false) {
+
+
+            if (this.hit('PushBar') !== false) {
+              Crafty.audio.play('node');
+              smokeToRow[arrowKey].tween({alpha: .7, z: 10}, 200)
+              .bind('TweenEnd', function() {
+                this.hide();
+              })
+              arrowKeyToRow[arrowKey].tween({alpha: 0.6}, 200)
+              .bind('TweenEnd', function() {
+                this.hide();
+              })
               if (this.x > 25 && this.x < 35) {
-                this.destroy();
-                announcement(1005, 'AWESOME!')
+                this.tween({alpha: .2}, 100)
+                .bind('TweenEnd', function() {
+                  this.destroy()
+                });
+                announcement(1005, 'AWESOME!', "3px 2px green")
               } else if (this.x > 19 && this.x < 40) {
                 this.destroy();
-                announcement(805, 'GOOD!')
+                announcement(805, 'GOOD!', "3px 2px blue")
               } else if (this.x > 10 && this.x < 47) {
                 this.destroy();
-                announcement(605, 'OKAY!')
+                announcement(605, 'OKAY!', "3px 2px orange")
               } else if (this.x > 5 && this.x < 53) {
                 this.destroy();
-                announcement(405, 'BAD!')
+                announcement(405, 'BAD!', "3px 2px red")
               }
             } else {
               Crafty('Points').each(function() {
-                this.text(this.points -= 50)
+                this.text(this.points -= 50)            
               })
 
             }
@@ -81,13 +131,77 @@ var barGenerate = function(y, color, arrowKey, image) {
     }
   })
 }
+
+Crafty.load([
+  'soundfx/mufflebite.mp3',
+  'soundfx/mufflebite.ogg',
+  'soundfx/mufflebite.wav',
+  'soundfx/intro.mp3',
+  'soundfx/intro.wav',
+  'soundfx/combobite.mp3',
+  'soundfx/combobite.wav',
+  'soundfx/quickbite.mp3',
+  'soundfx/quickbite.ogg',
+  'soundfx/quickbite.wav',
+  'soundfx/bumpbite.mp3',
+  'soundfx/bumpbite.ogg',
+  'soundfx/bumpbite.wav'])
+
+Crafty.audio.add({
+  node: ['soundfx/quickbite.mp3',
+        'soundfx/quickbite.ogg',
+        'soundfx/quickbite.wav',],
+  combo: ['soundfx/combobite.mp3',
+        'soundfx/combobite.wav'],
+  intro: ['soundfx/intro.mp3',
+        'soundfx/intro.wav'],
+  fail: ['soundfx/bumpbite.mp3',
+        'soundfx/bumpbite.ogg',
+        'soundfx/bumpbite.wav']
+})
+
+r1 = row('red', 56, 74)
+r2 = row('yellow', 131, 73)
+r3 = row('green', 205, 76)
+r4 = row('blue', 282, 68)
+r5 = row('brown', 0, 55)
+
+key1 = Crafty.keys.UP_ARROW
+key2 = Crafty.keys.DOWN_ARROW
+key3 = Crafty.keys.RIGHT_ARROW
+key4 = Crafty.keys.LEFT_ARROW
+
+arrowKeyToRow = {
+  '38': r1,
+  '40': r2,
+  '39': r3,
+  '37': r4
+}
+
+smoke1 = smoke(60, "img/smoke.png");
+
+smoke2 = smoke(135, "img/smoke2.png");
+
+smoke3 = smoke(210, "img/smoke3.png");
+
+smoke4 = smoke(281, "img/smoke4.png");
+
+smokeToRow = {
+  '38': smoke1,
+  '40': smoke2,
+  '39': smoke3,
+  '37': smoke4
+}
+
 //Bar
-barGenerate(60, 'rgb(100, 100, 255', Crafty.keys.UP_ARROW, 'img/arrowiconup.png')
-barGenerate(135, 'rgb(255, 0, 255', Crafty.keys.DOWN_ARROW, 'img/arrowicondown.png')
-barGenerate(210, 'rgb(255, 0, 0', Crafty.keys.RIGHT_ARROW, 'img/arrowiconright.png')
-barGenerate(281, 'rgb(255, 255, 0', Crafty.keys.LEFT_ARROW, 'img/arrowiconleft.png')
+
+barGenerate(60, 'red', key1, 'img/arrowiconup.png', 56, 74)
+barGenerate(135, 'yellow', key2, 'img/arrowicondown.png', 131, 73)
+barGenerate(210, 'green', key3, 'img/arrowiconright.png', 205, 76)
+barGenerate(281, 'blue', key4, 'img/arrowiconleft.png', 282, 68)
 
 //Score boards
+
 Crafty.e("Words, DOM, 2D, Text, Result")
 .attr({x: 300, y: 15, w: 100, h: 40, result: ""})
 .text("")
@@ -99,6 +213,8 @@ Crafty.e("Points, DOM, 2D, Text")
   .text("0")
   .textColor('#FFFFFF')
   .textFont({ size: '20px', weight: 'bold', family: 'Helvetica' })
+})
+Crafty.scene('Game')
   </script>
 </body>
 </html>
