@@ -20,13 +20,27 @@ var gauge = new Donut(target).setOptions(opts); // create sexy gauge!
 gauge.maxValue = 5000; // set max gauge value
 gauge.animationSpeed = 21; // set animation speed (32 is default value)
 gauge.set(1000)
+
+
 Crafty.scene('Opening', function() {
   Crafty.init(800, 350)
   Crafty.canvas.init()
+
+  Crafty.e("2D, DOM, Image")
+  .attr({w: Crafty.viewport.width, h: Crafty.viewport.height, alpha: .4, z: -1})
+  .image("img/groovemenu.png");
+
+Crafty.e("Combo, DOM, 2D, Text, groove")
+  .attr({x: -5, y: 265, w: 900, h: 20, alpha: .6, groove: "GROOVE FOR ME"})
+  .text("GROOVE FOR ME")
+  .textColor('#FFFFFF')
+  .textFont({ size: '86px', weight: 'bolder', family: 'Audiowide' })
+  .css({"letter-spacing": "-3px"})
     var button = $('.button')
     button.css({"display": "inline"})
   Crafty.background('black')
  
+
 
   var closebutton = $('.pause')
   var resumebutton = $('.resume')
@@ -147,7 +161,7 @@ var bar = function(y, color, image) {
   .image(image)
   .bind('EnterFrame', function () {
 
-    if (this.x < -10) {
+    if (this.x < -30) {
       Crafty.audio.play('fail')
       this.destroy();
       announcement(-300, 'MISSED!', "2px white")
@@ -184,11 +198,14 @@ var barGenerate = function(y, color, arrowKey, image) {
         }, 78000)
         if (this.lifecount == 0) {
           Crafty("Points").each(function() {
-            this.tween({x: 320, y: 72, rotation: 1080}, 500)
+            this.tween({x: 310, y: 72, rotation: 1080}, 500)
             this.textFont({ size: '50px', weight: "bolder" })
             this.css({'text-align': 'center'})
             this.timeout(function() {
-              this.hide();
+              this.tween({alpha: 0 }, 600)
+              .bind('TweenEnd', function() {
+                this.hide();
+              })
             }, 12000)
           })
           Crafty("2D").each(function () {
@@ -234,13 +251,13 @@ var barGenerate = function(y, color, arrowKey, image) {
               if (this.x > 23 && this.x < 34) {
                 announcement(1005, 'AWESOME!', '2px lawngreen')
                 combos(200)
-              } else if (this.x > 19 && this.x < 41) {
+              } else if (this.x > 14 && this.x < 41) {
                 announcement(805, 'GOOD!', '2px cyan')
                 combos(150)
-              } else if (this.x > 16 && this.x < 47) {
+              } else if (this.x > 5 && this.x < 47) {
                 announcement(605, 'OKAY!', '2px orange')
                 combos(100)
-              } else if (this.x > 13 && this.x < 53) {
+              } else if (this.x > -15 && this.x < 53) {
                 announcement(405, 'BAD!', '2px crimson')
                 combos(50)
               }
@@ -306,7 +323,7 @@ Crafty.e("Words, DOM, 2D, Text, Result")
 .textFont({ size: '35px', weight: 'bolder', family: 'Audiowide' })
 .css({'text-align': 'center'})
 Crafty.e("Points, DOM, 2D, Text, Multiplier, Persist, Tween, HideShow")
-  .attr({ x: 20, y: 18, w: 100, h: 20, points: 0, multiplier: 1, rotation: 0 })
+  .attr({ x: 20, y: 18, w: 100, h: 20, z: 20, points: 0, multiplier: 1, rotation: 0 })
   .text("0")
   .textColor('#FFFFFF')
   .textFont({ size: '20px', weight: 'bold', family: 'Helvetica' })

@@ -63,7 +63,10 @@ body.modal-open,
   background: linear-gradient(to right, #121212 , #191919); /* Standard syntax */
 
 }
-
+.talkup {
+  position: relative;
+  top: 20px;
+}
 #cr-stage {
   position: absolute;
   margin: 0 auto;
