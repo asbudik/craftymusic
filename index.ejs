@@ -40,10 +40,20 @@
               </ul>
             </li>
             <li>
-              <a href="#">About</a>
+              <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">About<span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li class="about"><img class="me" src="https://media.licdn.com/media/p/6/005/074/09a/0035291.jpg"> <p><strong>Adam Budik</strong></br><strong>Location:</strong> Berkeley, CA</br><strong>Occupation:</strong> Full Stack Web Developer Student at General Assembly's Web Development Immersive Program</li>
+              </ul>
             </li>
-            <li>
-              <a href="#">Contact</a>
+
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Contact<span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li class="contact"><strong class="contactinfo">Feel free to reach out to me:</strong></br> <span class="email">asbudik@live.com</span></br> <a href="https://github.com/asbudik">Github</a></br><a class="linkedin" href="https://www.linkedin.com/profile/view?id=357032852">Linked-In</a></li>
+                
+              </ul>
             </li>
           </ul>
 
@@ -76,20 +86,19 @@
         <div class="row">
           <div class="col-xs-4">
             <h3 class="projectname">Groove For Me</h3>
-              <a data-toggle="modal" href="#full-width"><img class="thumbnail" src="img/groovethumbnail3.png"></a>
-              <div id="full-width" class="modal container fade" tabindex="-1" style="display: none;">
-                <div class="modal-body">
-                  <div id="cr-stage">
-                    <canvas id="foo"></canvas>
-                    <div class="button"><span class="play">PLAY</span></div>
-                    <script type="text/javascript" src="components.js">
-                    </script>
+            <a data-toggle="modal" href="#full-width"><img class="thumbnail" src="img/groovethumbnail3.png"></a>
+            <div id="full-width" class="modal container fade" tabindex="-1" style="display: none;">
+              <div class="modal-body">
+                <div id="cr-stage">
+                  <canvas id="foo"></canvas>
+                  <div class="button"><span class="play">PLAY</span></div>
+                    <script type="text/javascript" src="components.js"></script>
                   </div>
                 </div>
                 <button type="button" class="btn btn-default pause">PAUSE</button>
                 <button type="button" class="btn btn-default resume">RESUME</button>
-          </div>
-      </div>
+              </div>
+            </div>
       <div class="notes col-xs-6">
         <h4>Notes</h4>
         <p>The creation of 'Groove For Me' allowed me to experience how much you must immerse yourself into your studies in order to build a dream from the ground up. Having never built a game that runs in HTML5, and my scarce knowledge of implementing Javascript libraries into my code, it was quite an uphill battle in coding up a working product. New classes of problems seemed to rise up, primarily trading expensive features for performance. I believe that is where most of my effort went; finding a healthy mix of aesthetics and performance.

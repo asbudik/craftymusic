@@ -48,6 +48,16 @@ body.modal-open,
 .modal.container {
   max-width: none;
 }
+
+.me {
+  float: left;
+  position: relative;
+  top: 10px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  width: 100px;
+  height: 100px;
+}
 #full-width {
   position: relative;
   top: 400px;
@@ -62,6 +72,25 @@ body.modal-open,
   background: -moz-linear-gradient(right, #121212, #191919); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to right, #121212 , #191919); /* Standard syntax */
 
+}
+
+.linkedin {
+  position: relative;
+  top: -20px;
+}
+.about, .contact {
+  width: 360px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.email {
+  position: relative;
+  left: 20px;
+  top: -1px;
+}
+.contact {
+  width: 240px;
 }
 .talkup {
   position: relative;
