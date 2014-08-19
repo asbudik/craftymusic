@@ -26,9 +26,7 @@ Crafty.scene('Opening', function() {
     var button = $('.button')
     button.css({"display": "inline"})
   Crafty.background('black')
-  Crafty.e("2D, DOM, Image")
-  .attr({w: Crafty.viewport.width, h: Crafty.viewport.height, z: 0, alpha: .5})
-  .image("img/menuscreen2.png");
+ 
 
   var closebutton = $('.pause')
   var resumebutton = $('.resume')
@@ -77,9 +75,9 @@ Crafty.e("2D, DOM, Image")
   .attr({w: Crafty.viewport.width, h: Crafty.viewport.height})
   .image("img/Untitled-3.png");
   Crafty.e("2D, DOM, Image, Tween")
-    .attr({w: Crafty.viewport.width, h: Crafty.viewport.height, z: 0, alpha: .1})
+    .attr({w: Crafty.viewport.width, h: Crafty.viewport.height, z: 0, alpha: 0.01})
     .image("img/bass.jpg")
-    .tween({z: 0, alpha: .5}, 400)
+    .tween({z: 0, alpha: .7}, 400)
     .bind('TweenEnd', function() {
       this.tween({z: 0, alpha: .2}, 1000)
     })
@@ -185,7 +183,19 @@ var barGenerate = function(y, color, arrowKey, image) {
           this.lifecount = 0;
         }, 78000)
         if (this.lifecount == 0) {
-          Crafty('obj').each(function() { this.destroy(); });
+          Crafty("Points").each(function() {
+            this.tween({x: 320, y: 72, rotation: 1080}, 500)
+            this.textFont({ size: '50px', weight: "bolder" })
+            this.css({'text-align': 'center'})
+            this.timeout(function() {
+              this.hide();
+            }, 12000)
+          })
+          Crafty("2D").each(function () {
+            if (!this.has("Persist")) {
+              this.destroy();
+            }
+          });
           $('#foo').css({"display": "none"})
           Crafty.audio.stop()
           Crafty.audio.play('intro')
@@ -293,10 +303,10 @@ Crafty.e("Words, DOM, 2D, Text, Result")
 .attr({x: 280, y: 8, w: 100, h: 40, result: ""})
 .text("")
 .textColor('#FFFFFF')
-.textFont({ size: '35px', weight: 'bolder', family: 'Audiowide', 'text-align': 'center' });
-
-Crafty.e("Points, DOM, 2D, Text, Multiplier")
-  .attr({ x: 20, y: 18, w: 100, h: 20, points: 0, multiplier: 1 })
+.textFont({ size: '35px', weight: 'bolder', family: 'Audiowide' })
+.css({'text-align': 'center'})
+Crafty.e("Points, DOM, 2D, Text, Multiplier, Persist, Tween, HideShow")
+  .attr({ x: 20, y: 18, w: 100, h: 20, points: 0, multiplier: 1, rotation: 0 })
   .text("0")
   .textColor('#FFFFFF')
   .textFont({ size: '20px', weight: 'bold', family: 'Helvetica' })
