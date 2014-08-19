@@ -8,9 +8,12 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
+    <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="modal.js"></script>
+    <script type="text/javascript" src="modalman.js"></script>
+    <link rel="stylesheet" type="text/css" href="modal.css">
     <script type="text/javascript" src="gauge.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="swatch.css">
@@ -71,25 +74,23 @@
       </div>
       <div class="container intro">
         <div class="row">
-          <div class="col-sm-6">
-            <h3>Groove For Me</h3>
-            <div class="gamemodal">
-              <button class="demo btn btn-primary btn-lg" data-toggle="modal" href="#full-width">View Demo</button>
+          <div class="col-xs-4">
+            <h3 class="projectname">Groove For Me</h3>
+              <a data-toggle="modal" href="#full-width"><img class="thumbnail" src="img/groovethumbnail3.png"></a>
               <div id="full-width" class="modal container fade" tabindex="-1" style="display: none;">
                 <div class="modal-body">
                   <div id="cr-stage">
                     <canvas id="foo"></canvas>
-                    <div class="button">PLAY</div>
+                    <div class="button"><span class="play">PLAY</span></div>
                     <script type="text/javascript" src="components.js">
                     </script>
                   </div>
                 </div>
-                <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-default pause">PAUSE</button>
+                <button type="button" class="btn btn-default resume">RESUME</button>
           </div>
-        </div>
       </div>
-      <div class="col-sm-6">
+      <div class="notes col-xs-6">
         <h4>Notes</h4>
         <p>The creation of 'Groove For Me' allowed me to experience how much you must immerse yourself into your studies in order to build a dream from the ground up. Having never built a game that runs in HTML5, and my scarce knowledge of implementing Javascript libraries into my code, it was quite an uphill battle in coding up a working product. New classes of problems seemed to rise up, primarily trading expensive features for performance. I believe that is where most of my effort went; finding a healthy mix of aesthetics and performance.
         </p>
@@ -97,5 +98,7 @@
         </div>
         </div>
       </div>
+      <img class="backimage" src="img/trarainbow2.png">
+      <div class="footer col-md-12"></div>
   </body>
 </html>

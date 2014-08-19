@@ -26,18 +26,50 @@ Crafty.scene('Opening', function() {
     var button = $('.button')
     button.css({"display": "inline"})
   Crafty.background('black')
-
   Crafty.e("2D, DOM, Image")
   .attr({w: Crafty.viewport.width, h: Crafty.viewport.height, z: 0, alpha: .5})
   .image("img/menuscreen2.png");
+
+  var closebutton = $('.pause')
+  var resumebutton = $('.resume')
+  var closemodal =$('modal-body')
+
+  closebutton.on('click', function() {
+    Crafty.audio.pause('bgmusic');
+    Crafty.pause(true)
+    closebutton.css({"display": "none"})
+    resumebutton.css({"display": "inline"})
+  })
+
+  resumebutton.on('click', function() {
+    Crafty.pause(false);
+    Crafty.audio.unpause('bgmusic')
+    resumebutton.css({"display": "none"})
+    closebutton.css({"display": "inline"})
+  })
+  $('body').on('click', function(e) {
+    if(e.target.id == "full-width") {
+      return;
+    }
+    if($(e.target).closest('#full-width').length) {
+      return;
+    }
+    Crafty.pause(true)
+    Crafty.audio.pause('bgmusic');
+    closebutton.css({"display": "none"})
+    resumebutton.css({"display": "inline"})
+  })
 
   button.on('click', function() {
     button.css({"display": "none"})
     $('#foo').css({"display": "inline"})
     Crafty.audio.stop();
+    resumebutton.css({"display": "none"})
+    closebutton.css({"display": "inline"})
     Crafty.scene('Game')
   })
 })
+
 Crafty.scene('Game', function() {
 Crafty.init(800, 350);
 Crafty.background('black');
@@ -58,7 +90,7 @@ var announcement = function(points, feedback, color) {
   })
   Crafty('Words').each(function() {
     this.text(this.result = feedback)
-    .css({"text-shadow": color})
+    .css({"-webkit-text-fill-color": "black", "-webkit-text-stroke": color})
   })
 }
 
@@ -112,7 +144,7 @@ var smoke = function(y, image) {
 var bar = function(y, color, image) {
   return Crafty.e("2D, DOM, Color, Collision, Image, HideShow, Tween")
   .attr({ x: 850, y: y, w: 10, h: 30, z: 10, 
-      dX: Crafty.math.randomInt(-5, -7), 
+      dX: Crafty.math.randomInt(-6, -8), 
       dY: 0})
   .image(image)
   .bind('EnterFrame', function () {
@@ -120,7 +152,7 @@ var bar = function(y, color, image) {
     if (this.x < -10) {
       Crafty.audio.play('fail')
       this.destroy();
-      announcement(-300, 'MISSED!', "3px 2px brown")
+      announcement(-300, 'MISSED!', "2px white")
       r5.tween({alpha: 0.6}, 200)
       .bind('TweenEnd', function() {
         this.hide()
@@ -144,7 +176,7 @@ var bar = function(y, color, image) {
  
 
 var barGenerate = function(y, color, arrowKey, image) {
-  countdown = 80
+  countdown = 70
   var timer = 0
   pushBar(y, color, image).bind('EnterFrame', function() {
 
@@ -158,6 +190,8 @@ var barGenerate = function(y, color, arrowKey, image) {
           Crafty.audio.stop()
           Crafty.audio.play('intro')
           Crafty.scene('Opening')
+          resumebutton.css({"display": "none"})
+          closebutton.css({"display": "inline"})
         }
       })
     timer += 1
@@ -168,7 +202,7 @@ var barGenerate = function(y, color, arrowKey, image) {
       countdown -= 1
     } else {
       var random = Math.random(50) * 10
-      if (random > 5) {
+      if (random > 4) {
         bar(y, color, image).bind('KeyDown', function(e) {
           if (e.key == arrowKey) {
 
@@ -187,17 +221,17 @@ var barGenerate = function(y, color, arrowKey, image) {
               .bind('TweenEnd', function() {
                 this.hide();
               })
-              if (this.x > 25 && this.x < 35) {
-                announcement(1005, 'AWESOME!', "3px 2px green")
+              if (this.x > 23 && this.x < 34) {
+                announcement(1005, 'AWESOME!', '2px lawngreen')
                 combos(200)
-              } else if (this.x > 19 && this.x < 40) {
-                announcement(805, 'GOOD!', "3px 2px blue")
+              } else if (this.x > 19 && this.x < 41) {
+                announcement(805, 'GOOD!', '2px cyan')
                 combos(150)
-              } else if (this.x > 10 && this.x < 47) {
-                announcement(605, 'OKAY!', "3px 2px orange")
+              } else if (this.x > 16 && this.x < 47) {
+                announcement(605, 'OKAY!', '2px orange')
                 combos(100)
-              } else if (this.x > 5 && this.x < 53) {
-                announcement(405, 'BAD!', "3px 2px red")
+              } else if (this.x > 13 && this.x < 53) {
+                announcement(405, 'BAD!', '2px crimson')
                 combos(50)
               }
             } else {
@@ -208,7 +242,7 @@ var barGenerate = function(y, color, arrowKey, image) {
             }
           }
         })
-        countdown = 80
+        countdown = 70
       }
     }
   })
@@ -216,11 +250,11 @@ var barGenerate = function(y, color, arrowKey, image) {
 
 Crafty.audio.play('bgmusic');
 //Score boards
-r1 = row('red', 56, 74)
+r1 = row('#ff1919', 56, 74)
 r2 = row('yellow', 131, 73)
 r3 = row('green', 205, 76)
-r4 = row('blue', 282, 68)
-r5 = row('brown', 0, 55)
+r4 = row('#1E90FF', 282, 68)
+r5 = row('#FF3300', 0, 55)
 
 key1 = Crafty.keys.UP_ARROW
 key2 = Crafty.keys.DOWN_ARROW
@@ -256,10 +290,10 @@ barGenerate(281, 'blue', key4, 'img/arrowiconleft.png', 282, 68)
 
 
 Crafty.e("Words, DOM, 2D, Text, Result")
-.attr({x: 300, y: 15, w: 100, h: 40, result: ""})
+.attr({x: 280, y: 8, w: 100, h: 40, result: ""})
 .text("")
 .textColor('#FFFFFF')
-.textFont({ size: '25px', weight: 'bold', family: 'Helvetica' });
+.textFont({ size: '35px', weight: 'bolder', family: 'Audiowide', 'text-align': 'center' });
 
 Crafty.e("Points, DOM, 2D, Text, Multiplier")
   .attr({ x: 20, y: 18, w: 100, h: 20, points: 0, multiplier: 1 })
@@ -267,20 +301,23 @@ Crafty.e("Points, DOM, 2D, Text, Multiplier")
   .textColor('#FFFFFF')
   .textFont({ size: '20px', weight: 'bold', family: 'Helvetica' })
 Crafty.e("Life, DOM, 2D, Text, LifeCount")
-  .attr({ x: 600, y: 18, w: 100, h: 20, lifecount: 30 })
+  .attr({ x: 600, y: 18, w: 130, h: 20, lifecount: 30 })
   .text("Saves: 30")
   .textColor('#FFFFFF')
-  .textFont({ size: '14px', weight: 'bold', family: 'Helvetica' })
+  .textFont({ size: '14px', weight: 'bold', family: 'Audiowide' })
+  .css({"letter-spacing": "2px"})
   Crafty.e("Combo, DOM, 2D, Text, combos")
-  .attr({x:743, y: 28, w: 100, h: 20, combos: 1000})
+  .attr({x:743, y: 20, w: 100, h: 20, combos: 1000})
   .text("1000")
   .textColor('#FFFFFF')
   .textFont({ size: '14px', weight: 'bold', family: 'Helvetica' })
   Crafty.e("Multiple, DOM, 2D, Text, combos")
-  .attr({x: 105, y: 21, w: 100, h: 20, cbmult: 1})
+  .attr({x: 105, y: 21, w: 130, h: 20, cbmult: 1})
   .text("Combo x1")
   .textColor('#FFFFFF')
-  .textFont({ size: '14px', weight: 'bold', family: 'Helvetica' })
+  .textFont({ size: '14px', weight: 'bold', family: 'Audiowide' })
+  .css({"letter-spacing": "2px"})
+
 })
 
 

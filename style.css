@@ -8,6 +8,29 @@
  * Boostrap 3 patch for for bootstrap-modal. Include BEFORE bootstrap-modal.css!
  */
 
+* {
+    outline: none;
+}
+a img { border: none;}
+
+.gamemodal { border: none;}
+a {border: none;}
+a { border: none; }
+img { border: none; }
+.thumbnail { border: none; }
+.playbutton { border: none; }
+#full-width { border: none; }
+.modal {outline: none;}
+
+.gamemodal { outline: none;}
+a {outline: none;}
+a:focus { outline: none; }
+img:focus { outline: none; }
+.thumbnail:focus { outline: none; }
+.playbutton:focus { outline: none; }
+#full-width:focus { outline: none; }
+.modal:focus {outline: none;}
+
 body.modal-open, 
 .modal-open .navbar-fixed-top, 
 .modal-open .navbar-fixed-bottom {
@@ -19,13 +42,6 @@ body.modal-open,
   right: auto;
   padding: 0;
   width: 500px;
-  margin-left: -250px;
-  background-color: #ffffff;
-  border: 1px solid #999999;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
-  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
-  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   background-clip: padding-box;
 }
 
@@ -34,37 +50,99 @@ body.modal-open,
 }
 #full-width {
   position: relative;
-  top: -300px;
-  left: 100px;
+  top: 400px;
+  margin: 0 auto;
   width: 900px;
-  height: 440px;
-  background-color: black;
+  height: 460px;
+  background-color: #191919;
+  border-radius: 3px;
+  border: 2px solid #3f3f3f;
+  background: -webkit-linear-gradient(left, #121212 , #191919); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #121212, #191919); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #121212, #191919); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #121212 , #191919); /* Standard syntax */
+
 }
 
 #cr-stage {
   position: absolute;
   margin: 0 auto;
 }
+span {
+  position: relative;
+  top: 6px;
+}
 .button {
   display: none;
     cursor: pointer;
-    width: 200px;
+    width: 250px;
     position: absolute;
-    height:40px;
-    left: 200px;
-    top: 200px;
+    height:60px;
+    left: 260px;
+    top: 150px;
     -moz-border-radius: 5px; /* Firefox */
     -webkit-border-radius: 5px; /* Safari, Chrome */
-    border-radius: 5px; /* CSS3 */
+    border-radius: 15px; /* CSS3 */
     border:2px ridge white;
     background: red;
     color:#ffffff;
     text-align: center;
     bottom:20px;
     z-index: 100;
-    font-family: 'Helvetica', sans-serif;
+    font-family: 'Audiowide', sans-serif;
     font-weight: bolder;
     font-size: 30px;
+    letter-spacing: 1px;
+    background: -webkit-linear-gradient(left, #1E90FF , #00FFFF); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #1E90FF, #00FFFF); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #1E90FF, #00FFFF); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #1E90FF , #00FFFF); /* Standard syntax */
+    
+}
+
+.button:hover {
+  display: none;
+    cursor: pointer;
+    width: 250px;
+    position: absolute;
+    height:60px;
+    left: 260px;
+    top: 150px;
+    -moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari, Chrome */
+    border-radius: 15px; /* CSS3 */
+    border:2px ridge white;
+    background: red;
+    color:#ffffff;
+    text-align: center;
+    bottom:20px;
+    z-index: 100;
+    font-family: 'Audiowide', sans-serif;
+    font-weight: bolder;
+    font-size: 30px;
+    letter-spacing: 4px;
+    background: -webkit-linear-gradient(left, #00BFFF , #b2ffff); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #00BFFF, #b2ffff); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #00BFFF, #b2ffff); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #00BFFF , #b2ffff); /* Standard syntax */
+  box-shadow: 2px 2px 7px black;
+}
+
+
+.resume, .pause {
+  width: 300px;
+  position: relative;
+  left: 270px;
+  font-family: 'Audiowide', sans-serif;
+  letter-spacing: 2px;
+  font-size: 40px;
+  height: 40px;
+}
+.resume {
+  display: none;
+}
+.pause {
+  display: inline;
 }
 #foo {
   position: absolute;
@@ -73,15 +151,94 @@ body.modal-open,
   left: 700px;
   height: 40px;
   z-index: 100;
-  top: 17px;
+  top: 9px;
 }
-
+.thumbnail {
+  position: relative;
+  height: 200px;
+  width: 420px;
+  margin: 0;
+}
+.playbutton {
+  position: relative;
+  top: -180px;
+  left: 135px;
+  height: 120px;
+  width: 120px;
+}
 #buttons {
   margin-top: 35px;
   font-size: 50px;
 }
 
+.jumbotron {
+   position: relative;
+}
+.jumbotron:after {
+    content : "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url('img/congruent_outline.png'); 
+    width: 100%;
+    height: 100%;
+    opacity : 0.2;
+}
+
 .intro{
   margin-bottom: 50px;
   margin-top: 80px;
+}
+.projectname {
+  letter-spacing: 1px;
+  position: relative;
+  margin-bottom: 30px;
+}
+.notes {
+  margin-left: 130px;
+  background: rgba(25, 25, 25, .3);
+  border-radius: 10px;
+  -moz-box-shadow:    inset 0 0 3px #000000;
+   -webkit-box-shadow: inset 0 0 3px #000000;
+   box-shadow:         inset 0 0 3px #000000;
+}
+.imagewrapper {
+  width: 300px;
+  height: 300px;
+}
+
+.row {
+  height: 400px;
+}
+.backimage {
+  float: right;
+  position: relative;
+  top: -560px;
+  overflow: hidden;
+  height: 520px;
+  width: 500px;
+  margin-bottom: -1200px;
+  z-index: -1;
+}
+
+.footer {
+  border-top: 2px solid black;
+  margin-top: -60px;
+  width: 100%;
+  height: 60px;
+  background: black;
+  position: relative;
+  bottom: -20px;
+}
+.footer:after {
+  content : "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url('img/congruent_outline.png'); 
+    width: 100%;
+    height: 100%;
+    opacity : 0.3;
 }
