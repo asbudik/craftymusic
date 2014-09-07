@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>  
+  <meta property="og:title" content="Groove For Me" />
+  <meta property="og:url" content="http://asbudik.github.io/craftymusic/" />
+  <meta property="og:image" content="img/grooveformehead.png" />
+  <script type="text/javascript" src="crafty.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="modal.js"></script>
+    <script type="text/javascript" src="modalman.js"></script>
+    <link rel="stylesheet" type="text/css" href="modal.css">
+    <script type="text/javascript" src="gauge.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="swatch.css">
+  </head>
+  <body>
+  <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="#" class="navbar-brand">AB Display</a>
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Projects <span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li><a href="#">All Projects</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Groove For Me</a></li>
+              </ul>
+            </li>
+            <li>
+              <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">About<span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li class="about"><img class="me" src="https://media.licdn.com/media/p/6/005/074/09a/0035291.jpg"> <p><strong>Adam Budik</strong></br><strong>Location:</strong> Berkeley, CA</br><strong>Occupation:</strong> Full Stack Web Developer Student at General Assembly's Web Development Immersive Program</li>
+              </ul>
+            </li>
+
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Contact<span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li class="contact"><strong class="contactinfo">Feel free to reach out to me:</strong></br> <span class="email">asbudik@live.com</span></br> <a href="https://github.com/asbudik">Github</a></br><a class="linkedin" href="https://www.linkedin.com/profile/view?id=357032852">Linked-In</a></li>
+                
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">My Toolbelt<span class="caret"></span></a>
+              <ul class="dropdown-menu" aria-labelledby="themes">
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">Javascript</a></li>
+                <li><a href="https://www.ruby-lang.org/en/">Ruby</a></li>
+                <li class="divider"></li>
+                <li><a href="http://expressjs.com/">Express</a></li>
+                <li><a href="http://nodejs.org/">Node</a></li>
+                <li><a href="http://craftyjs.com/">Crafty.js</a></li>
+                <li><a href="http://sequelizejs.com/">Sequelize</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="bs-component">
+      <div class="jumbotron">
+      <div class="container">
+        <div class="talkup"><h1>Groove For Me</h1>
+        <p>Groove For Me is a simple DDR clone created with vanilla Javascript and the Crafty.js game engine.</p>
+        </div>
+        </div>
+      </div>
+      <div class="container intro">
+        <div class="row">
+          <div class="col-xs-4">
+            <h3 class="projectname">Groove For Me</h3>
+            <a data-toggle="modal" href="#full-width"><img class="thumbnail" src="img/groovethumbnail3.png"></a>
+            <div id="full-width" class="modal container fade" tabindex="-1" style="display: none;">
+              <div class="modal-body">
+                <div id="cr-stage">
+                  <canvas id="foo"></canvas>
+                  <div class="button"><span class="play">PLAY</span></div>
+                    <script type="text/javascript" src="components.js"></script>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-default pause">PAUSE</button>
+                <button type="button" class="btn btn-default resume">RESUME</button>
+              </div>
+            </div>
+      <div class="notes col-xs-6">
+        <h4>Notes</h4>
+        <p>The creation of 'Groove For Me' allowed me to experience how much you must immerse yourself into your studies in order to build a dream from the ground up. Having never built a game that runs in HTML5, and my scarce knowledge of implementing Javascript libraries into my code, it was quite an uphill battle in coding up a working product. New classes of problems seemed to rise up, primarily trading expensive features for performance. I believe that is where most of my effort went; finding a healthy mix of aesthetics and performance.
+        </p>
+        <p>Upon the finalization of 'Groove For Me,' I feel I learned quite a bit and was able to push out a product that closely resembled my end goal, barred only by sacrificing features for performance gain. If I hadn't been encouraged to search for a fitting Javascript library for my next project, I may have never treaded into unfamiliar waters of game creation. It was a fulfilling experience, and gave me confidence to venture out in the future and implement new libraries into my projects.</p>
+        </div>
+        </div>
+      </div>
+
+      <img class="backimage" src="img/trarainbow2.png">
+      <div class="footer col-md-12"></div>
+  </body>
+</html>
